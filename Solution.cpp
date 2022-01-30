@@ -22,19 +22,19 @@ public:
         vector<vector < string>> suggestedWordsForEachEntry;
         createDictionary(root, products);
 
-        TrieNode* nodeFormostRecentEntryOfPrefix = root;
+        TrieNode* nodeForMostRecentEntryOfPrefix = root;
         for (const auto& letter : searchWord) {
 
             prefix.push_back(letter);
-            nodeFormostRecentEntryOfPrefix = getNodeForMostRecentEntryOfPrefix(nodeFormostRecentEntryOfPrefix, letter);
+            nodeForMostRecentEntryOfPrefix = getNodeForMostRecentEntryOfPrefix(nodeForMostRecentEntryOfPrefix, letter);
 
             vector<string> suggestedWords;
-            searchTrie(suggestedWords, nodeFormostRecentEntryOfPrefix, prefix);
+            searchTrie(suggestedWords, nodeForMostRecentEntryOfPrefix, prefix);
             suggestedWordsForEachEntry.push_back(suggestedWords);
         }
 
-        nodeFormostRecentEntryOfPrefix = nullptr;
-        delete nodeFormostRecentEntryOfPrefix;
+        nodeForMostRecentEntryOfPrefix = nullptr;
+        delete nodeForMostRecentEntryOfPrefix;
 
         root = nullptr;
         delete root;
