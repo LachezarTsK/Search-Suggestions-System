@@ -33,6 +33,12 @@ public:
             suggestedWordsForEachEntry.push_back(suggestedWords);
         }
 
+        nodeFormostRecentEntryOfPrefix = nullptr;
+        delete nodeFormostRecentEntryOfPrefix;
+
+        root = nullptr;
+        delete root;
+
         return suggestedWordsForEachEntry;
     }
 
@@ -72,6 +78,7 @@ public:
             current = current->branches[index];
         }
         current->isEndOfWord = true;
+
         current = nullptr;
         delete current;
     }
