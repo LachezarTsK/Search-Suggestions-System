@@ -17,17 +17,17 @@ var suggestedProducts = function (products, searchWord) {
     createDictionary(root, products);
 
     const prefix = [];
-    let nodeFormostRecentEntryOfPrefix = root;
+    let nodeForMostRecentEntryOfPrefix = root;
 
     for (let i = 0; i < size; i++) {
 
         let nextChar = searchWord.charAt(i);
         prefix.push(nextChar);
-        nodeFormostRecentEntryOfPrefix = getNodeForMostRecentEntryOfPrefix(nodeFormostRecentEntryOfPrefix, nextChar);
+        nodeForMostRecentEntryOfPrefix = getNodeForMostRecentEntryOfPrefix(nodeForMostRecentEntryOfPrefix, nextChar);
 
         let suggestedWords = [];
 
-        searchTrie(suggestedWords, nodeFormostRecentEntryOfPrefix, prefix);
+        searchTrie(suggestedWords, nodeForMostRecentEntryOfPrefix, prefix);
         suggestedWordsForEachEntry.push(suggestedWords);
     }
 
