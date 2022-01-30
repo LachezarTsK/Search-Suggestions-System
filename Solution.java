@@ -26,16 +26,16 @@ public class Solution {
         createDictionary(root, products);
         int size = searchWord.length();
 
-        TrieNode nodeFormostRecentEntryOfPrefix = root;
+        TrieNode nodeForMostRecentEntryOfPrefix = root;
         for (int i = 0; i < size; i++) {
 
             char nextChar = searchWord.charAt(i);
             prefix.append(nextChar);
-            nodeFormostRecentEntryOfPrefix = getNodeForMostRecentEntryOfPrefix(nodeFormostRecentEntryOfPrefix, nextChar);
+            nodeForMostRecentEntryOfPrefix = getNodeForMostRecentEntryOfPrefix(nodeForMostRecentEntryOfPrefix, nextChar);
 
             List<String> suggestedWords = new ArrayList<>();
 
-            searchTrie(suggestedWords, nodeFormostRecentEntryOfPrefix, prefix);
+            searchTrie(suggestedWords, nodeForMostRecentEntryOfPrefix, prefix);
             suggestedWordsForEachEntry.add(suggestedWords);
         }
         return suggestedWordsForEachEntry;
