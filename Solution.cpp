@@ -72,6 +72,8 @@ public:
             current = current->branches[index];
         }
         current->isEndOfWord = true;
+        current = nullptr;
+        delete current;
     }
 
     TrieNode* getNodeForMostRecentEntryOfPrefix(TrieNode* current, char nextPrefixLetter) {
