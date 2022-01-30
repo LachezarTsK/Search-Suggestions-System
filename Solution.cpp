@@ -9,20 +9,20 @@ class Solution {
 
     struct TrieNode {
         bool isEndOfWord = false;
-        vector<TrieNode*> branches{ ALPHABET, nullptr};
+        vector<shared_ptr<TrieNode>> branches {ALPHABET};
     };
 
 public:
 
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
 
-        TrieNode* root = new TrieNode();
+        shared_ptr<TrieNode> root(new TrieNode());
         string prefix;
 
         vector<vector < string>> suggestedWordsForEachEntry;
         createDictionary(root, products);
 
-        TrieNode* nodeForMostRecentEntryOfPrefix = root;
+        shared_ptr<TrieNode> nodeForMostRecentEntryOfPrefix(root);
         for (const auto& letter : searchWord) {
 
             prefix.push_back(letter);
@@ -33,16 +33,10 @@ public:
             suggestedWordsForEachEntry.push_back(suggestedWords);
         }
 
-        nodeForMostRecentEntryOfPrefix = nullptr;
-        delete nodeForMostRecentEntryOfPrefix;
-
-        root = nullptr;
-        delete root;
-
         return suggestedWordsForEachEntry;
     }
 
-    void searchTrie(vector<string>& suggestedWords, TrieNode* node, string& word) {
+    void searchTrie(vector<string>& suggestedWords, shared_ptr<TrieNode> node, string& word) {
 
         if (node == nullptr || suggestedWords.size() == MAX_SUGGESTED_WORDS_TO_DISPLAY) {
             return;
@@ -60,30 +54,27 @@ public:
         }
     }
 
-    void createDictionary(TrieNode* root, const vector<string>& products) {
+    void createDictionary(shared_ptr<TrieNode> root, const vector<string>& products) {
         for (const auto& product : products) {
             addWordToTrie(root, product);
         }
     }
 
-    void addWordToTrie(TrieNode* root, const string& word) {
+    void addWordToTrie(shared_ptr<TrieNode> root, const string& word) {
 
-        TrieNode* current = root;
+        shared_ptr<TrieNode> current(root);
 
         for (const auto& letter : word) {
             int index = letter - 'a';
             if (current->branches[index] == nullptr) {
-                current->branches[index] = new TrieNode();
+                current->branches[index] = shared_ptr<TrieNode>(new TrieNode());
             }
             current = current->branches[index];
         }
         current->isEndOfWord = true;
-
-        current = nullptr;
-        delete current;
     }
 
-    TrieNode* getNodeForMostRecentEntryOfPrefix(TrieNode* current, char nextPrefixLetter) {
+    shared_ptr<TrieNode> getNodeForMostRecentEntryOfPrefix(shared_ptr<TrieNode> current, char nextPrefixLetter) {
         if (current == nullptr || current->branches[nextPrefixLetter - 'a'] == nullptr) {
             return nullptr;
         }
